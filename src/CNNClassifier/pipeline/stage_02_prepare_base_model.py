@@ -1,5 +1,5 @@
-from CNNClassifier.config import ConfigurationManager
-from CNNClassifier.components import PrepareBaseModel
+from CNNClassifier.config.configuration import ConfigurationManager
+from CNNClassifier.components.stage_02_prepare_base_model import PrepareBaseModel
 from CNNClassifier import logger
 
 config = ConfigurationManager()
