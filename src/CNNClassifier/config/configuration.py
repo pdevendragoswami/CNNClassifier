@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from CNNClassifier.utils.utils import read_yaml,create_directory
-from CNNClassifier.entity.config_entity import DataIngestionConfig
+from CNNClassifier.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig
 from CNNClassifier.constants import CONFIG_FILE_PATH,PARAMS_FILE_PATH
 
 class ConfigurationManager:
@@ -29,12 +29,12 @@ class ConfigurationManager:
         prepare_base_model_config = PrepareBaseModelConfig(
             root_dir = Path(config.root_dir),
             base_model_path = Path(config.base_model_path),
-            updated_base_model = Path(config.updated_base_model_path),
+            updated_base_model_path = Path(config.updated_base_model_path),
             params_image_size = self.params.IMAGE_SIZE,
             params_learning_rate = self.params.LEARNING_RATE,
             params_include_top = self.params.INCLUDE_TOP,
             params_weights = self.params.WEIGHTS,
-            params_classess = self.params.CLASSES)
+            params_classes = self.params.CLASSES)
 
         return prepare_base_model_config
-        
+ 
