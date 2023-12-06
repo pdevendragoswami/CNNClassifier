@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from urllib.request import request
+from urllib import request
 from zipfile import ZipFile
 from CNNClassifier import logger
 from tqdm import tqdm
@@ -13,8 +13,8 @@ class DataIngestion:
     
     def download_file(self):
         if not os.path.exists(self.config.local_data_file):
-            logging.info(f'trying to download the file')
-            request.urlretrieve(url = self.config.Source_URL, file_name = self.config.local_data_file)
+            logger.info(f'trying to download the file')
+            request.urlretrieve(url = self.config.Source_URL, filename = self.config.local_data_file)
         else:
             logger.info(f"file {self.config.local_data_file} already exist")
     
@@ -31,5 +31,5 @@ class DataIngestion:
             list_of_files = zipfile.namelist()
             updated_list_of_files = self.get_updated_list_of_files(list_of_files)
             for file in tqdm(updated_list_of_files):
-                self.preprocess(zipfile, file, working_dir)
+                self.preprocess(zipfile, file, self.config.unzip_dir)
                 
