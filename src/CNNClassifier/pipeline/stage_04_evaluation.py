@@ -1,4 +1,4 @@
-from CNNClassifier.config import ConfigurationManager
+from CNNClassifier.config.configuration import ConfigurationManager
 from CNNClassifier.components.stage_04_evaluation import Evaluation
 from CNNClassifier import logger
 

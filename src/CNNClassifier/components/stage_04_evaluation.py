@@ -23,15 +23,15 @@ class Evaluation:
             shuffle = False,
             **dataflow_kwargs)
 
-        @staticmethod
-        def load_model(path:Path)-> tf.keras.Model:
-            return tf.keras.models.load_model(path)
-        
-        def evaluation(self):
-            self.model = self.load_model(self.config.path_of_model)
-            self.valid_generator()
-            self.score
+    @staticmethod
+    def load_model(path:Path)-> tf.keras.Model:
+        return tf.keras.models.load_model(path)
+    
+    def evaluation(self):
+        self.model = self.load_model(self.config.path_of_model)
+        self.valid_generator()
+        self.score
 
-        def save_score(self):
-            scores = {"loss": self.score[0], "accuracy": self.score[1]}
-            save_json(path=Path("scores.json"), data=scores)
+    def save_score(self):
+        scores = {"loss": self.score[0], "accuracy": self.score[1]}
+        save_json(path=Path("scores.json"), data=scores)
