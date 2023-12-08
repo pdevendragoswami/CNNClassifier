@@ -26,6 +26,11 @@ class DataIngestion:
         if not os.path.exists(target_file_path):
             zipfile.extract(file,working_dir)
 
+        if os.path.getsize(target_file_path) == 0:
+            logger.info(f"removing file:{target_file_path} of size: {os.path.getsize(target_file_path)}")
+            os.remove(target_file_path)
+
+
     def unzip_and_clean(self):
         with ZipFile(file=self.config.local_data_file, mode = 'r') as zipfile:
             list_of_files = zipfile.namelist()
