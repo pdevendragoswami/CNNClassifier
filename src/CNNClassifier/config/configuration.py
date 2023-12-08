@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from CNNClassifier.utils.utils import read_yaml,create_directory
-from CNNClassifier.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig,TrainingConfig,EvaluationConfig
+from CNNClassifier.entity.config_entity import DataIngestionConfig,PrepareBaseModelConfig,TrainingConfig,EvaluationConfig,PrepareCallbacksConfig
 from CNNClassifier.constants import CONFIG_FILE_PATH,PARAMS_FILE_PATH
 
 class ConfigurationManager:
@@ -38,6 +38,20 @@ class ConfigurationManager:
 
         return prepare_base_model_config
 
+    def get_prepare_callback_config(self) -> PrepareCallbacksConfig:
+        config = self.config.prepare_callbacks
+        model_ckpt_dir = os.path.dirname(config.checkpoint_model_filepath)
+        create_directory([Path(model_ckpt_dir),Path(config.tensorboard_root_log_dir)])
+
+        prepare_callback_config = PrepareCallbacksConfig(
+            root_dir=Path(config.root_dir),
+            tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
+            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
+        )
+
+        return prepare_callback_config
+    
+
     def get_training_config(self)-> TrainingConfig :
         config = self.config.training
         prepare_base_model = self.config.prepare_base_model
@@ -60,7 +74,6 @@ class ConfigurationManager:
         eval_config = EvaluationConfig(
             path_of_model=os.path.join(self.config.training.trained_model_path),
             training_data=os.path.join(self.config.data_ingestion.unzip_dir,'PetImages'),
-            #all_params=self.params,
             params_image_size=self.params.IMAGE_SIZE,
             params_batch_size=self.params.BATCH_SIZE
         )
