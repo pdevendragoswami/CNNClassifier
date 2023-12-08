@@ -14,7 +14,7 @@ try:
     training.get_base_model()
     training.train_valid_generator()
     training.train(callback_list=callback_list)
-    training.train()
+    #training.train()
     
 except Exception as e:
     pass
